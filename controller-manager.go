@@ -34,6 +34,8 @@ func StartControllerManagerServer() {
 	config.DeletingPodsQps = 0.1
 	config.DeletingPodsBurst = 10
 	config.EnableProfiling = true
+	config.ServiceAccountKeyFile = "/root/easy-rsa-master/easyrsa3/pki/private/kubernetes-master.key"
+	config.RootCAFile = "/root/easy-rsa-master/easyrsa3/pki/ca.crt"
 
 	fn := func() error {
 		return controllerManager.Run(config)

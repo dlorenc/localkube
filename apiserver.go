@@ -13,9 +13,11 @@ import (
 )
 
 const (
-	APIServerName = "apiserver"
-	APIServerHost = "0.0.0.0"
-	APIServerPort = 8080
+	APIServerName       = "apiserver"
+	APIServerHost       = "127.0.0.1"
+	APIServerSecureHost = "0.0.0.0"
+	APIServerPort       = 8080
+	APIServerSecurePort = 443
 )
 
 var (
@@ -46,8 +48,14 @@ func StartAPIServer() {
 	config := options.NewAPIServer()
 
 	// use host/port from vars
+	config.BindAddress = net.ParseIP(APIServerSecureHost)
 	config.InsecureBindAddress = net.ParseIP(APIServerHost)
 	config.InsecurePort = APIServerPort
+	config.SecurePort = APIServerSecurePort
+	config.ClientCAFile = "/root/easy-rsa-master/easyrsa3/pki/ca.crt"
+	config.TLSCertFile = "/root/easy-rsa-master/easyrsa3/pki/issued/kubernetes-master.crt"
+	config.TLSPrivateKeyFile = "/root/easy-rsa-master/easyrsa3/pki/private/kubernetes-master.key"
+	config.AdmissionControl = "NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
 
 	// use localkube etcd
 	config.EtcdConfig = etcdstorage.EtcdConfig{
