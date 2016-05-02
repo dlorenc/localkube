@@ -52,9 +52,9 @@ func StartAPIServer() {
 	config.InsecureBindAddress = net.ParseIP(APIServerHost)
 	config.InsecurePort = APIServerPort
 	config.SecurePort = APIServerSecurePort
-	config.ClientCAFile = "/root/easy-rsa-master/easyrsa3/pki/ca.crt"
-	config.TLSCertFile = "/root/easy-rsa-master/easyrsa3/pki/issued/kubernetes-master.crt"
-	config.TLSPrivateKeyFile = "/root/easy-rsa-master/easyrsa3/pki/private/kubernetes-master.key"
+	config.ClientCAFile = "/srv/kubernetes/certs/ca.crt"
+	config.TLSCertFile = "/srv/kubernetes/certs/kubernetes-master.crt"
+	config.TLSPrivateKeyFile = "/srv/kubernetes/certs/kubernetes-master.key"
 	config.AdmissionControl = "NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
 
 	// use localkube etcd
